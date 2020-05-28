@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Button, Row, Col } from 'reactstrap';
+import { Container, Button } from 'reactstrap';
 import AddTodo from './AddTodo';
 import TodoList from './TodoList';
 import {ADD_TODO,EDIT_TODO} from '../common';
@@ -11,6 +11,7 @@ function TodoContainer() {
   const [filter, setFilter] = useState(false);
   const [todo, setTodo] = useState('');
   const [comment, setComment] = useState('');
+  const [completed,setCompleted] = useState(false);
   const [currentId, setCurrentId] = useState(0);
   const [filterValue, setFilterValue] = useState('');
 
@@ -25,12 +26,12 @@ function TodoContainer() {
   // adding new todo
   const submitData = () => {
     if (currentId === 0) {
-      const updatedList = [...todoList, { id: todoList.length + 1, todo, comment }];
+      const updatedList = [...todoList, { id: todoList.length + 1, todo, comment,completed }];
       setTodoList(updatedList);
     } else {
       const result = todoList.map((result) => {
         return result.id === currentId ?
-          { ...result, todo, comment }
+          { ...result, todo, comment,completed }
           : result
       })
       setTodoList(result);
@@ -47,6 +48,7 @@ function TodoContainer() {
     setType('');
     setTodo('');
     setComment('');
+    setCompleted(false);
   }
   // filter the todo
   const filterData = (e) => {
@@ -70,29 +72,31 @@ function TodoContainer() {
     setComment(data.comment);
     setType(EDIT_TODO);
     setModal(true);
+    setCompleted(data.completed);
     setCurrentId(data.id);
   }
   // delete the todo
   const deleteTodo = (data) => {
     const deletedData = todoList.filter((deleteList) => {
-      return data.id != deleteList.id;
+      return data.id !== deleteList.id;
     });
     setTodoList(deletedData);
     setFilterValue('');
     setFilter(false);
   }
+  console.log(todoList);
   return (
     <Container >
       <h2 className="header-class"> Todo App</h2>
-      <Row>
-        <Col md="6">
-          <span>Search: <input type="text" onChange={(e) => filterData(e)} value={filterValue} placeholder="Enter todo" /></span>
-        </Col>
-        <Col md="4">
-          <Button color="success" className="align-button" onClick={() => showAddForm()}>Add Todo</Button>
-        </Col>
-      </Row>
-      {modal && type != '' ? <AddTodo type={type}
+      <div className="header">
+        <div className="searchbox">
+          <input type="text" onChange={(e) => filterData(e)} value={filterValue} placeholder="Search todo" />
+        </div>
+        <div className="addBUtton">
+          <Button color="success" size="sm" className="align-button" onClick={() => showAddForm()}>Add Todo</Button>
+        </div>
+      </div>
+      {modal && type !== '' ? <AddTodo type={type}
         modal={modal}
         toggle={toggle}
         todo={todo}
@@ -100,6 +104,8 @@ function TodoContainer() {
         setTodo={setTodo}
         setComment={setComment}
         submitData={submitData}
+        completed = {completed}
+        setCompleted={setCompleted}
       /> : ''}
       <TodoList data={filter ? filterList : todoList} editTodo={editTodo} deleteTodo={deleteTodo} />
     </Container>

@@ -3,7 +3,7 @@ import { Container, Table } from 'reactstrap';
 import PaginationList from './PaginationList';
 import Logo from '../images/delete.svg';
 import editLogo from '../images/edit.svg';
-import { PAGE_SIZE } from '../common';
+import { PAGE_SIZE, NOTCOMPLETED,COMPLETED } from '../common';
 function TodoList({
     data,
     editTodo,
@@ -25,6 +25,7 @@ function TodoList({
                         <th> Id</th>
                         <th> Todo</th>
                         <th>Description</th>
+                        <th>Completed</th>
                         <th> Action</th>
                     </tr>
                 </thead>
@@ -38,11 +39,12 @@ function TodoList({
                                 <td>{result.id}</td>
                                 <td>{result.todo}</td>
                                 <td> {result.comment}</td>
-                                <td><span className="mr-3"><img src={editLogo} className="logo" onClick={()=>editTodo(result)} /></span><span><img src={Logo} className="logo" onClick={()=>deleteTodo(result)}/></span></td>
+                        <td>{result.completed.toString()}</td>
+                                <td><span className="mr-3"><img src={editLogo} alt ="edit"className="logo" onClick={()=>editTodo(result)} /></span><span><img src={Logo} className="logo" alt="delete" onClick={()=>deleteTodo(result)}/></span></td>
                             </tr>
 
                         )
-                    }) : <td colSpan="4">No Records Found</td>}
+                    }) : <td colSpan="5">No Records Found</td>}
 
                 </tbody>
             </Table>
