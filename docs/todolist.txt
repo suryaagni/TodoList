@@ -1,9 +1,12 @@
 #### TodoList App ######
-Features
+Following Features that are mandatory have been implemented
 # Add Todo
 # Edit Todo
 # Delete Todo
 # Filter Todo
+
+Following Bonus Feature have been implemented
+    Pagination
 
 Add Todo
 # Clicking the Add todo opens modal window with Form
