@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Container, Button } from 'reactstrap';
+import { Container, Button, Row, Col } from 'reactstrap';
 import AddTodo from './AddTodo';
 import TodoList from './TodoList';
-import {ADD_TODO,EDIT_TODO} from '../common';
+import { ADD_TODO, EDIT_TODO } from '../common';
 function TodoContainer() {
   const [modal, setModal] = useState(false);
   const [type, setType] = useState('');
@@ -11,7 +11,7 @@ function TodoContainer() {
   const [filter, setFilter] = useState(false);
   const [todo, setTodo] = useState('');
   const [comment, setComment] = useState('');
-  const [completed,setCompleted] = useState(false);
+  const [completed, setCompleted] = useState(false);
   const [currentId, setCurrentId] = useState(0);
   const [filterValue, setFilterValue] = useState('');
 
@@ -21,17 +21,19 @@ function TodoContainer() {
     setModal(true);
     setType(ADD_TODO);
   }
+
+  // for closing modal
   const toggle = () => clearTodo();
-  
+
   // adding new todo
   const submitData = () => {
     if (currentId === 0) {
-      const updatedList = [...todoList, { id: todoList.length + 1, todo, comment,completed }];
+      const updatedList = [...todoList, { id: todoList.length + 1, todo, comment, completed }];
       setTodoList(updatedList);
     } else {
       const result = todoList.map((result) => {
         return result.id === currentId ?
-          { ...result, todo, comment,completed }
+          { ...result, todo, comment, completed }
           : result
       })
       setTodoList(result);
@@ -84,18 +86,17 @@ function TodoContainer() {
     setFilterValue('');
     setFilter(false);
   }
-  console.log(todoList);
   return (
     <Container >
       <h2 className="header-class"> Todo App</h2>
-      <div className="header">
-        <div className="searchbox">
+      <Row xs="2">
+        <Col xs="12" md="2"><div className="searchbox">
           <input type="text" onChange={(e) => filterData(e)} value={filterValue} placeholder="Search todo" />
-        </div>
-        <div className="addBUtton">
-          <Button color="success" size="sm" className="align-button" onClick={() => showAddForm()}>Add Todo</Button>
-        </div>
-      </div>
+        </div></Col>
+        <Col xs="12"md="2">
+          <Button color="primary" size="sm" className="align-button" onClick={() => showAddForm()}>Add Todo</Button>
+        </Col>
+      </Row>
       {modal && type !== '' ? <AddTodo type={type}
         modal={modal}
         toggle={toggle}
@@ -104,7 +105,7 @@ function TodoContainer() {
         setTodo={setTodo}
         setComment={setComment}
         submitData={submitData}
-        completed = {completed}
+        completed={completed}
         setCompleted={setCompleted}
       /> : ''}
       <TodoList data={filter ? filterList : todoList} editTodo={editTodo} deleteTodo={deleteTodo} />
@@ -112,4 +113,4 @@ function TodoContainer() {
   );
 }
 
-export default TodoContainer;
+export default React.memo(TodoContainer);

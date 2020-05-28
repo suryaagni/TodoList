@@ -1,5 +1,7 @@
 import React from 'react';
 import { Container, Button, Modal, ModalHeader, ModalBody, FormGroup, Label, Input } from 'reactstrap';
+import { EDIT_TODO } from '../common';
+import { NOTCOMPLETED,COMPLETED } from '../common';
 function AddTodo({
     modal,
     type,
@@ -12,24 +14,29 @@ function AddTodo({
     completed,
     setCompleted,
 }) {
-
-
+    const statusDisplay = ()=> {
+        
+           return (<React.Fragment>
+                <Label for="Status">Status</Label>
+                <Input type="select" name="select" id="completed" value={completed} onChange={(e) => setCompleted(e.target.value)}>
+           <option value={true}>{COMPLETED}</option>
+           <option value={false}>{NOTCOMPLETED}</option>
+                </Input>
+            </React.Fragment>)
+        
+    }
     return (
         <Container>
             <Modal isOpen={modal} toggle={toggle} autoFocus={false}>
-                <ModalHeader>{type}</ModalHeader>
+                <ModalHeader toggle={toggle}>{type}</ModalHeader>
                 <ModalBody>
                     <FormGroup>
                         <Label for="exampleText">Todo</Label>
                         <Input type="text" name="text" id="todo" autoFocus={true} value={todo} onChange={(e) => setTodo(e.target.value)} />
                     </FormGroup>
                     <FormGroup>
-        <Label for="Status">Completed</Label>
-        <Input type="select" name="select" id="completed" value={completed} onChange={(e) => setCompleted(e.target.value)}>
-          <option value={true}>True</option>
-          <option value={false}>False</option>
-        </Input>
-      </FormGroup>
+                        {type === EDIT_TODO && statusDisplay()}
+                    </FormGroup>
                     <FormGroup>
                         <Label for="exampleText">Description</Label>
                         <Input type="textarea" name="comments" id="comments" value={comment} onChange={(e) => setComment(e.target.value)} />
@@ -41,4 +48,4 @@ function AddTodo({
     )
 }
 
-export default AddTodo;
+export default React.memo(AddTodo);

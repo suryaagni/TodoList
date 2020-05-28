@@ -3,7 +3,7 @@ import { Container, Table } from 'reactstrap';
 import PaginationList from './PaginationList';
 import Logo from '../images/delete.svg';
 import editLogo from '../images/edit.svg';
-import { PAGE_SIZE, NOTCOMPLETED,COMPLETED } from '../common';
+import { PAGE_SIZE, NOTCOMPLETED,COMPLETED,NO_RECORD_FOUND } from '../common';
 function TodoList({
     data,
     editTodo,
@@ -19,13 +19,13 @@ function TodoList({
     const pagesCount = Math.ceil(data.length / pageSize);
     return (
         <Container className="mt-5">
-            <Table bordered>
+            <Table bordered responsive>
                 <thead>
                     <tr>
                         <th> Id</th>
                         <th> Todo</th>
                         <th>Description</th>
-                        <th>Completed</th>
+                        <th>Status</th>
                         <th> Action</th>
                     </tr>
                 </thead>
@@ -36,15 +36,15 @@ function TodoList({
                     ).map((result, index) => {
                         return (
                             <tr>
-                                <td>{result.id}</td>
+                                <td>{index+1}</td>
                                 <td>{result.todo}</td>
                                 <td> {result.comment}</td>
-                        <td>{result.completed.toString()}</td>
+                        <td>{result.completed === 'true'? COMPLETED:NOTCOMPLETED }</td>
                                 <td><span className="mr-3"><img src={editLogo} alt ="edit"className="logo" onClick={()=>editTodo(result)} /></span><span><img src={Logo} className="logo" alt="delete" onClick={()=>deleteTodo(result)}/></span></td>
                             </tr>
 
                         )
-                    }) : <td colSpan="5">No Records Found</td>}
+                        }) : <td colSpan="5">{NO_RECORD_FOUND}</td>}
 
                 </tbody>
             </Table>
@@ -55,4 +55,4 @@ function TodoList({
     );
 }
 
-export default TodoList
+export default React.memo(TodoList);
