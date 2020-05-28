@@ -1,0 +1,31 @@
+#### TodoList App ######
+Features
+# Add Todo
+# Edit Todo
+# Delete Todo
+# Filter Todo
+
+Add Todo
+# Clicking the Add todo opens modal window with Form
+# todo name is mandatory and Description optional
+# Clicking Submit will add a new todo.
+# Added todo displayed in a todo list.
+
+Edit Todo
+# Clicking edit icon opens modal window with Form
+# Click Submit after making changes.
+# The changes will be affected in todo list.
+
+Delete todo
+# click the delete icon in the TodoList.
+# todo will get deleted.
+
+Filter Todo
+# Add a characters in the search box.
+# If the character present based on that TodoList will get updated.
+
+Pagination
+# Records per page is 5.
+# After exceeds next page shows the remaining records.
+
+

@@ -78,6 +78,8 @@ function TodoContainer() {
       return data.id != deleteList.id;
     });
     setTodoList(deletedData);
+    setFilterValue('');
+    setFilter(false);
   }
   return (
     <Container >
