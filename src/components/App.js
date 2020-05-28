@@ -1,11 +1,10 @@
 import React from 'react';
-import BalanceDashboard from './BalanceDashboard.js';
+import TodoContainer from './TodoContainer.js';
 function App() {
   return (
     <div className="App">
-      <BalanceDashboard/>
+      <TodoContainer/>
     </div>
   );
 }
-
 export default App;
