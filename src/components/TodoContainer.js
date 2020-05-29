@@ -90,10 +90,10 @@ function TodoContainer() {
     <Container >
       <h2 className="header-class"> Todo App</h2>
       <Row xs="2">
-        <Col xs="12" md="2"><div className="searchbox">
+        <Col xs="6" md="2"><div className="searchbox">
           <input type="text" onChange={(e) => filterData(e)} value={filterValue} placeholder="Search todo" />
         </div></Col>
-        <Col xs="12"md="2">
+        <Col xs="6"md="2">
           <Button color="primary" size="sm" className="align-button" onClick={() => showAddForm()}>Add Todo</Button>
         </Col>
       </Row>
